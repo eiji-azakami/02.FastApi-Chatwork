@@ -8,6 +8,9 @@ FastAPI Chatwork連携 サンプル
 - ログ出力は左記を利用 [01.FastApi-Logging](https://github.com/eiji-azakami/01.FastApi-Logging)
 - テスト付き（pytest）
 
+## 設定
+.env.example に従って、.env を作成してください。
+
 ## 起動方法
 
 ```bash
@@ -20,7 +23,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --no-access-log
 ```
 
-# After startup:
+# 起動後
 - Swagger UI: http://127.0.0.1:8000/docs
 - Redoc:        http://127.0.0.1:8000/redoc
 
@@ -45,8 +48,8 @@ python -m pytest
 ・通知
 ・タスク作成
 ・チャットボット
-・予約など受付
-　　など
+・予約等の受付
+　　などなど
 
 # Author
  
