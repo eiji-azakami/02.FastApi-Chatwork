@@ -13,8 +13,12 @@ FastAPI Chatwork連携 サンプル
 
 ## 起動方法
 
+pythonコマンドは環境によって「python3」だったり、
+「python」、「py」だったりするようです。
+お使いの環境に合わせてコマンドを変更してください。
+
 ```bash
-python -m venv venv
+python3 -m venv venv
 # Windows (PowerShell)
 venv\Scripts\Activate.ps1
 # Windows (cmd.exe)
