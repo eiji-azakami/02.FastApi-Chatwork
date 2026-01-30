@@ -5,15 +5,16 @@ Chatwork 連携 API。
 - 環境変数から API トークンとルーム ID を取得して使用します。
 
 エンドポイント:
-  - POST /chatwork/send_message: メッセージ送信
-  - POST /chatwork/create_task: タスク作成
-  - GET /chatwork/get_rooms: チャットルームのリスト取得
+  - POST `/chatwork/send_message`: メッセージ送信
+  - POST `/chatwork/create_task`: タスク作成
+  - GET `/chatwork/get_rooms`: チャットルームのリスト取得
 
 """
 
 import os
 from fastapi import APIRouter, HTTPException
 from app.services.chatwork import ChatworkAPI
+from pydantic import BaseModel
 
 router = APIRouter(tags=["chatwork"])
 
@@ -26,25 +27,35 @@ if not api_token:
 chatwork_api = ChatworkAPI(api_token=api_token)
 
 
+class SendMessageRequest(BaseModel):
+    message: str
+
+
+class CreateTaskRequest(BaseModel):
+    body: str
+    to_ids: str
+
+
 def get_room_id():
     """環境変数からルームIDを取得します。"""
     room_id = os.getenv("ROOM_ID")
     if not room_id:
         # ルームIDが設定されていない場合はエラー
         raise HTTPException(
-            status_code=500, detail="ROOM_ID is not set in the environment variables"
+            status_code=500,
+            detail="ROOM_ID is not set in the environment variables",
         )
     return int(room_id)
 
 
 @router.post("/chatwork/send_message")
-def send_message(message: str):
+def send_message(request: SendMessageRequest):
     """チャットルームにメッセージを送信します。"""
     try:
         # ルームID取得
         room_id = get_room_id()
         # メッセージを送信します。
-        response = chatwork_api.send_message(room_id, message)
+        response = chatwork_api.send_message(room_id, request.message)
         return {"status": "success", "data": response}
     except Exception as e:
         # 例外をスロー
@@ -52,13 +63,13 @@ def send_message(message: str):
 
 
 @router.post("/chatwork/create_task")
-def create_task(body: str, to_ids: str):
+def create_task(request: CreateTaskRequest):
     """チャットルームにタスクを作成します。"""
     try:
         # ルームID取得
         room_id = get_room_id()
         # タスクを作成します。
-        response = chatwork_api.create_task(room_id, body, to_ids)
+        response = chatwork_api.create_task(room_id, request.body, request.to_ids)
         return {"status": "success", "data": response}
     except Exception as e:
         # 例外をスロー

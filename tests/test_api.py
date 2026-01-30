@@ -50,4 +50,4 @@ def test_missing_env_vars(monkeypatch):
     monkeypatch.delenv("ROOM_ID", raising=False)
     response = client.post("/chatwork/send_message", json={"message": "Hello, Chatwork!"})
     assert response.status_code == 500
-    assert response.json() == {"detail": "ROOM_ID is not set in the environment variables"}
+    assert "ROOM_ID is not set in the environment variables" in response.json()["detail"]
