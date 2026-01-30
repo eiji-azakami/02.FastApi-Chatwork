@@ -13,8 +13,7 @@ FastAPI Chatwork連携 サンプル
 
 ## 起動方法
 
-pythonコマンドは環境によって「python3」だったり、
-「python」、「py」だったりするようです。
+pythonコマンドは環境によって「python3」だったり、「python」、「py」だったりするようです。<br>
 お使いの環境に合わせてコマンドを変更してください。
 
 ```bash
