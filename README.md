@@ -33,6 +33,9 @@ uvicorn app.main:app --reload --no-access-log
 ## テスト
 
 ```bash
+# 環境変数を設定してからテストを実行
+$env:API_TOKEN="test_api_token"
+$env:ROOM_ID="12345"
 python -m pytest
 ```
 
